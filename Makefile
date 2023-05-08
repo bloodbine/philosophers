@@ -3,7 +3,8 @@ NAME	= philosophers
 OBJDIR	= obj/
 SRCDIR	= src/
 
-SRC		= philosophers.c
+SRC		=	philosophers.c	\
+			philo_utils.c
 
 SRCOBJ	= $(patsubst %.c, $(OBJDIR)%.o, $(SRC))
 
