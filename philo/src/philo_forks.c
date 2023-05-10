@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_general_utils.c                              :+:      :+:    :+:   */
+/*   philo_forks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 17:05:53 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/09 17:05:06 by gpasztor         ###   ########.fr       */
+/*   Created: 2023/05/10 14:54:32 by gpasztor          #+#    #+#             */
+/*   Updated: 2023/05/10 15:40:01 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../includes/philo.h"
 
-int64_t	atoint64(char	*num)
+int	create_forks(t_data *data)
 {
-	int64_t	converted;
-	int		i;
+	int	i;
 
 	i = -1;
-	while (num[++i])
+	data->forks = malloc(data->input.philocount * sizeof(pthread_mutex_t));
+	while (++i < data->input.philocount)
 	{
-		if (num[i] < '0' || num[i] > '9')
-			return (-1);
+		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
+			return (1);
 	}
+	return (0);
+}
+
+int	destroy_forks(t_data *data)
+{
+	int	i;
+
 	i = -1;
-	converted = 0;
-	while (num[++i])
-	{
-		converted += (num[i] - '0');
-		if (num[i + 1] != '\0')
-			converted *= 10;
-	}
-	return (converted);
+	data->forks = malloc(data->input.philocount * sizeof(pthread_mutex_t));
+	while (++i < data->input.philocount)
+		pthread_mutex_destroy(&data->forks[i]);
+	return (0);
 }

@@ -3,8 +3,12 @@ NAME	= philo
 OBJDIR	= obj/
 SRCDIR	= src/
 
-SRC		=	philo.c	\
-			philo_utils.c
+SRC		=	philo.c			\
+			philo_time.c	\
+			philo_forks.c 	\
+			philo_input.c	\
+			philo_philos.c	\
+
 
 SRCOBJ	= $(patsubst %.c, $(OBJDIR)%.o, $(SRC))
 
