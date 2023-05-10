@@ -1,15 +1,16 @@
-NAME	= philosophers
+NAME	= philo
 
 OBJDIR	= obj/
 SRCDIR	= src/
 
-SRC		=	philosophers.c	\
+SRC		=	philo.c	\
 			philo_utils.c
 
 SRCOBJ	= $(patsubst %.c, $(OBJDIR)%.o, $(SRC))
 
 CC		= cc
-RM		= rm -f
+RMF		= rm -f
+RMRF	= rm -rf
 RMDIR	= rmdir
 CFLAGS	= -Wall -Wextra -Werror
 
@@ -21,11 +22,10 @@ $(NAME): $(SRCOBJ)
 	$(CC) $(SRCOBJ) $(CFLAGS) -o $(NAME)
 
 clean: 
-	$(RM) $(SRCOBJ)
-	if [ -d "obj" ]; then rmdir obj; fi
+	$(RMRF) $(OBJDIR)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RMF) $(NAME)
 
 re: fclean all
 
