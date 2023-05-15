@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_time.c                                       :+:      :+:    :+:   */
+/*   philo_routines.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 17:01:32 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/15 15:18:53 by gpasztor         ###   ########.fr       */
+/*   Created: 2023/05/13 12:48:44 by gpasztor          #+#    #+#             */
+/*   Updated: 2023/05/15 15:11:30 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../includes/philo.h"
 
-long long	get_time(void)
+void	*routine(void *arg)
 {
-	struct timeval	time;
+	t_data	*data;
+	t_philo	*philo;
 
-	gettimeofday(&time, NULL);
-	return ((time.tv_sec * 1000) + (time.tv_usec * 0.001));
-}
-
-long long	delta_time(long long time)
-{
-	return (get_time() - time);
+	data = (t_data *)arg;
+	philo = &data->philos[data->threadi];
+	while (philo->alive == 0 && data->death == 0)
+	{
+		if (data->input.rotations != 0 && philo->meals >= data->input.rotations)
+			break ;
+		philo_eat(data, philo);
+		philo_sleep(data, philo);
+		philo_think(data, philo);
+	}
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:43:45 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/10 16:02:30 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:20:46 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,21 @@ int	main(int argc, char **argv)
 			return (EXIT_FAILURE);
 		if (create_forks(&data) != 0)
 			return (EXIT_FAILURE);
-		create_philos(&data);
-		destroy_forks(&data);
+		data.death = 0;
+		data.stime = get_time();
+		if (create_philos(&data) != 0)
+			return (EXIT_FAILURE);
+		data.threadi = -1;
+		while (++(data.threadi) < data.input.philocount)
+		{
+			pthread_create(&(data.philos[data.threadi].pthread), NULL,
+				&routine, &data);
+			usleep(1000);
+		}
+		pthread_mutex_destroy(&data.writelock);
+		if (destroy_forks(&data) != 0)
+			return (EXIT_FAILURE);
 		return (EXIT_SUCCESS);
 	}
 	return (EXIT_FAILURE);
 }
-
-// printf("%d %lld %lld %lld %d\n", data.input.philocount, data.input.tt_die, data.input.tt_eat, data.input.tt_sleep, data.input.rotations);

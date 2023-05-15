@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:46:25 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/10 15:59:44 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/15 12:27:52 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <sys/time.h> // time calculation
 # include <pthread.h> // threads
-# include <stdbool.h> // bools
 # include <unistd.h> // usleep
 # include <stdlib.h> // exit code definitions
 # include <stdio.h> // printf
@@ -30,9 +29,11 @@ typedef struct s_forks
 //	Required data for each Philosopher
 typedef struct s_philo
 {
+	pthread_t		pthread;
 	struct s_forks	forks;
-	bool			alive;
-	int				mealcount;
+	long long		last_meal;
+	int				meals;
+	int				alive;
 	int				id;
 }				t_philo;
 
@@ -50,20 +51,41 @@ typedef struct s_input
 typedef struct s_data
 {
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	writelock;
 	t_philo			*philos;
 	t_input			input;
 	long long		stime;
-	bool			death;
+	int				threadi;
+	int				death;
 }				t_data;
+
+// Philosopher actions
+
+void		*routine(void *arg);
+void		philo_eat(t_data *data, t_philo *philo);
+void		philo_sleep(t_data *data, t_philo *philo);
+void		philo_think(t_data *data, t_philo *philo);
+
+// Time Utils
+
+long long	get_time(void);
+long long	delta_time(long long time);
+
+// Input Utils
 
 int			read_inputs(int argc, char **argv, t_data *data);
 int			my_atoi(char *num);
 long long	my_atoll(char *num);
-long long	get_time(void);
+
+// Fork Utils
+int			create_forks(t_data *data);
+int			pickup_forks(t_data *data, t_philo *philo);
+int			drop_forks(t_data *data, t_philo *philo);
+int			destroy_forks(t_data *data);
+
+// Philo Utils
+
 int			create_philos(t_data *data);
 void		fill_philo(t_data *data, int left, int right);
-long long	delta_time(long long time);
-int			create_forks(t_data *data);
-int			destroy_forks(t_data *data);
 
 #endif

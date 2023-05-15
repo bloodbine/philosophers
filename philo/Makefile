@@ -5,9 +5,11 @@ SRCDIR	= src/
 
 SRC		=	philo.c			\
 			philo_time.c	\
-			philo_forks.c 	\
-			philo_input.c	\
+			philo_routines.c\
 			philo_philos.c	\
+			philo_input.c	\
+			philo_forks.c 	\
+			philo_actions.c	\
 
 
 SRCOBJ	= $(patsubst %.c, $(OBJDIR)%.o, $(SRC))

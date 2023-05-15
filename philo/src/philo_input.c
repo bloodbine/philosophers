@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:05:53 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/10 15:28:38 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/10 16:32:17 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	my_atoi(char *num)
 int	read_inputs(int argc, char **argv, t_data *data)
 {
 	data->input.philocount = my_atoi(argv[1]);
-	if (data->input.philocount == -1)
+	if (data->input.philocount <= 0)
 		return (-1);
 	data->input.tt_die = my_atoll(argv[2]);
 	if (data->input.tt_die == -1)
