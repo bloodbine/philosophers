@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 14:54:37 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/15 12:16:19 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:59:57 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,17 @@ void	fill_philo(t_data *data, int left, int right)
 	// printf("Right fork: %d\n", data->philos[left].forks.r_fork);
 	// printf("Mealcount: %d\n", data->philos[left].mealcount);
 	// printf("Last meal: %lld\n\n", data->philos[left].last_meal);
+}
+
+int	join_philos(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (++i < data->input.philocount)
+	{
+		if (pthread_join(data->philos[i].pthread, NULL) != 0)
+			return (1);
+	}
+	return (0);
 }
