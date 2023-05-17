@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:48:44 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/15 16:57:17 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/17 11:53:43 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@ void	*routine(void *arg)
 	pthread_join(philo->pthread, NULL);
 	while (philo->alive == 0 && data->death == 0)
 	{
-		if (data->input.rotations != 0 && philo->meals >= data->input.rotations)
-			break ;
 		philo_eat(data, philo);
+		philo->meals++;
 		philo_sleep(data, philo);
 		philo_think(data, philo);
+		if (data->input.rotations != 0 && philo->meals >= data->input.rotations)
+			break ;
 	}
 	return (NULL);
 }
