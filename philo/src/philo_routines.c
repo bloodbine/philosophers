@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:48:44 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/18 13:16:52 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:29:01 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,34 @@ void	*supervisor(void *arg)
 		if (philo_dead(data, &data->philos[i]) == 1)
 		{
 			data->death = 1;
-			printf("DEBUG: DEAD %lld %d\n", delta_time(data->stime), data->philos[i].id);
 			detach_philos(data);
 			break ;
 		}
 	}
 	return (NULL);
+}
+
+int	supervisor2(t_data *data)
+{
+	int		i;
+
+	i = 0;
+	while (1)
+	{
+		if (i == data->input.philocount)
+			i = 0;
+		if (philo_dead(data, &data->philos[i]) == 1)
+		{
+			data->death = 1;
+			data->write = 0;
+			detach_philos(data);
+			return (1);
+		}
+		if (data->philos[i].meals == data->input.rotations)
+		{
+			join_philos(data);
+			break ;
+		}
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:01:32 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/18 14:58:39 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:02:45 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_usleep(long long time_to_sleep)
 	start = get_time();
 	while (1)
 	{
-		if (get_time() >= (start + time_to_sleep))
+		if (get_time() == (start + time_to_sleep))
 			return ;
 	}
 }
