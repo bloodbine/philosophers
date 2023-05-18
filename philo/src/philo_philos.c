@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 14:54:37 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/15 16:59:57 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/18 10:58:18 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ int	create_philos(t_data *data)
 void	fill_philo(t_data *data, int left, int right)
 {
 	data->philos[left].id = right;
-	data->philos[left].alive = 0;
 	if (right == 1)
 		data->philos[left].forks.l_fork = data->input.philocount - 1;
 	else
 		data->philos[left].forks.l_fork = left - 1;
 	data->philos[left].forks.r_fork = right - 1;
 	data->philos[left].meals = 0;
+	data->philos[left].eating = 0;
 	data->philos[left].last_meal = data->stime;
 	// printf("Data for philo: %d\n", data->philos[left].id);
 	// printf("Alive: %d\n", data->philos[left].alive);
@@ -58,6 +58,19 @@ int	join_philos(t_data *data)
 	while (++i < data->input.philocount)
 	{
 		if (pthread_join(data->philos[i].pthread, NULL) != 0)
+			return (1);
+	}
+	return (0);
+}
+
+int	detach_philos(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (++i < data->input.philocount)
+	{
+		if (pthread_detach(data->philos[i].pthread) != 0)
 			return (1);
 	}
 	return (0);

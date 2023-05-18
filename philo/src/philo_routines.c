@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:48:44 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/17 11:53:43 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/18 13:16:52 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,36 @@ void	*routine(void *arg)
 
 	data = (t_data *)arg;
 	philo = &data->philos[data->threadi];
-	pthread_join(philo->pthread, NULL);
-	while (philo->alive == 0 && data->death == 0)
+	while (data->death == 0)
 	{
 		philo_eat(data, philo);
 		philo->meals++;
-		philo_sleep(data, philo);
-		philo_think(data, philo);
 		if (data->input.rotations != 0 && philo->meals >= data->input.rotations)
 			break ;
+		philo_sleep(data, philo);
+		philo_think(data, philo);
+	}
+	return (NULL);
+}
+
+void	*supervisor(void *arg)
+{
+	t_data	*data;
+	int		i;
+
+	data = (t_data *)arg;
+	i = 0;
+	while (1)
+	{
+		if (i == data->input.philocount)
+			i = 0;
+		if (philo_dead(data, &data->philos[i]) == 1)
+		{
+			data->death = 1;
+			printf("DEBUG: DEAD %lld %d\n", delta_time(data->stime), data->philos[i].id);
+			detach_philos(data);
+			break ;
+		}
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:46:25 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/15 15:37:37 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/18 14:50:55 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ typedef struct s_philo
 	pthread_t		pthread;
 	struct s_forks	forks;
 	long long		last_meal;
+	int				eating;
 	int				meals;
-	int				alive;
 	int				id;
 }				t_philo;
 
@@ -52,6 +52,7 @@ typedef struct s_data
 {
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	writelock;
+	pthread_t		supervisor;
 	t_philo			*philos;
 	t_input			input;
 	long long		stime;
@@ -61,15 +62,18 @@ typedef struct s_data
 
 // Philosopher actions
 
+void		*supervisor(void *arg);
 void		*routine(void *arg);
 void		philo_eat(t_data *data, t_philo *philo);
 void		philo_sleep(t_data *data, t_philo *philo);
 void		philo_think(t_data *data, t_philo *philo);
+int			philo_dead(t_data *data, t_philo *philo);
 
 // Time Utils
 
 long long	get_time(void);
 long long	delta_time(long long time);
+void		ft_usleep(long long time_to_sleep);
 
 // Input Utils
 
@@ -88,5 +92,6 @@ int			destroy_forks(t_data *data);
 int			create_philos(t_data *data);
 void		fill_philo(t_data *data, int left, int right);
 int			join_philos(t_data *data);
+int			detach_philos(t_data *data);
 
 #endif
