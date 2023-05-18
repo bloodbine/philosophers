@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 14:54:37 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/18 10:58:18 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:41:15 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,6 @@ void	fill_philo(t_data *data, int left, int right)
 	data->philos[left].meals = 0;
 	data->philos[left].eating = 0;
 	data->philos[left].last_meal = data->stime;
-	// printf("Data for philo: %d\n", data->philos[left].id);
-	// printf("Alive: %d\n", data->philos[left].alive);
-	// printf("Left fork: %d\n", data->philos[left].forks.l_fork);
-	// printf("Right fork: %d\n", data->philos[left].forks.r_fork);
-	// printf("Mealcount: %d\n", data->philos[left].mealcount);
-	// printf("Last meal: %lld\n\n", data->philos[left].last_meal);
 }
 
 int	join_philos(t_data *data)

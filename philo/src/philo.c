@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:43:45 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/18 15:27:22 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:40:56 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int	main(int argc, char **argv)
 	if (argc == 5 || argc == 6)
 	{
 		if (read_inputs(argc, argv, &data) == -1)
-			return (EXIT_FAILURE);
+			return (system("leaks philo"));
 		if (create_forks(&data) != 0)
-			return (EXIT_FAILURE);
+			return (system("leaks philo"));
 		data.death = 0;
 		data.stime = get_time();
 		if (create_philos(&data) != 0)
-			return (EXIT_FAILURE);
+			return (system("leaks philo"));
 		data.threadi = -1;
 		while (++(data.threadi) < data.input.philocount)
 		{
@@ -33,10 +33,10 @@ int	main(int argc, char **argv)
 				&routine, &data);
 			ft_usleep(1);
 		}
-		supervisor2(&data);
+		supervisor(&data);
 		destroy_forks(&data);
-		return (EXIT_SUCCESS);
+		return (system("leaks philo"));
 	}
-	return (EXIT_FAILURE);
+	return (system("leaks philo"));
 }
  

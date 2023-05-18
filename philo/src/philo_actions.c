@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:51:39 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/18 15:22:23 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:37:40 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	philo_think(t_data *data, t_philo *philo)
 
 int	philo_dead(t_data *data, t_philo *philo)
 {
-	if (delta_time(philo->last_meal) >= data->input.tt_die && !philo->eating)
+	if (delta_time(philo->last_meal) > data->input.tt_die && !philo->eating)
 	{
 		pthread_mutex_lock(&data->writelock);
 		printf("%lld %d died\n", delta_time(data->stime), philo->id);

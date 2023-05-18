@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 14:54:32 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/17 12:58:12 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:47:13 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,23 @@ int	pickup_forks(t_data *data, t_philo *philo)
 	{
 		if (pthread_mutex_lock(&data->forks[philo->forks.l_fork]) != 0)
 			return (1);
-		printf("%lld %d has taken a fork\n", delta_time(data->stime), philo->id);
+		if (data->write == 1)
+			printf("%lld %d has taken a fork\n", delta_time(data->stime), philo->id);
 		if (pthread_mutex_lock(&data->forks[philo->forks.r_fork]) != 0)
 			return (1);
-		printf("%lld %d has taken a fork\n", delta_time(data->stime), philo->id);
+		if (data->write == 1)
+			printf("%lld %d has taken a fork\n", delta_time(data->stime), philo->id);
 	}
 	else
 	{
 		if (pthread_mutex_lock(&data->forks[philo->forks.r_fork]) != 0)
 			return (1);
-		printf("%lld %d has taken a fork\n", delta_time(data->stime), philo->id);
+		if (data->write == 1)
+			printf("%lld %d has taken a fork\n", delta_time(data->stime), philo->id);
 		if (pthread_mutex_lock(&data->forks[philo->forks.l_fork]) != 0)
 			return (1);
-		printf("%lld %d has taken a fork\n", delta_time(data->stime), philo->id);
+		if (data->write == 1)
+			printf("%lld %d has taken a fork\n", delta_time(data->stime), philo->id);
 	}
 	return (0);
 }

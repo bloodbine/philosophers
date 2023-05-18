@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:48:44 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/18 15:29:01 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:41:09 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,7 @@ void	*routine(void *arg)
 	return (NULL);
 }
 
-void	*supervisor(void *arg)
-{
-	t_data	*data;
-	int		i;
-
-	data = (t_data *)arg;
-	i = 0;
-	while (1)
-	{
-		if (i == data->input.philocount)
-			i = 0;
-		if (philo_dead(data, &data->philos[i]) == 1)
-		{
-			data->death = 1;
-			detach_philos(data);
-			break ;
-		}
-	}
-	return (NULL);
-}
-
-int	supervisor2(t_data *data)
+int	supervisor(t_data *data)
 {
 	int		i;
 
@@ -68,7 +47,7 @@ int	supervisor2(t_data *data)
 			detach_philos(data);
 			return (1);
 		}
-		if (data->philos[i].meals == data->input.rotations)
+		if (data->input.rotations != 0 && data->philos[i].meals == data->input.rotations)
 		{
 			join_philos(data);
 			break ;
