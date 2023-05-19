@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:43:45 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/18 15:40:56 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/19 13:06:27 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	main(int argc, char **argv)
 		{
 			pthread_create(&(data.philos[data.threadi].pthread), NULL,
 				&routine, &data);
-			ft_usleep(1);
 		}
 		supervisor(&data);
 		destroy_forks(&data);

@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:51:39 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/18 15:37:40 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/19 11:30:49 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	philo_eat(t_data *data, t_philo *philo)
 	pthread_mutex_lock(&data->writelock);
 	if (data->write == 1)
 		printf("%lld %d is eating\n", delta_time(data->stime), philo->id);
-	pthread_mutex_unlock(&data->writelock);
 	philo->eating = 1;
-	ft_usleep(data->input.tt_eat);
+	pthread_mutex_unlock(&data->writelock);
 	philo->last_meal = get_time();
+	ft_usleep(data->input.tt_eat);
 	drop_forks(data, philo);
 	philo->eating = 0;
 }
@@ -45,10 +45,10 @@ void	philo_think(t_data *data, t_philo *philo)
 
 int	philo_dead(t_data *data, t_philo *philo)
 {
-	if (delta_time(philo->last_meal) > data->input.tt_die && !philo->eating)
+	if (delta_time(philo->last_meal) > data->input.tt_die && philo->eating == 0)
 	{
 		pthread_mutex_lock(&data->writelock);
-		printf("%lld %d died\n", delta_time(data->stime), philo->id);
+		printf("%lld %lld %d died\n", delta_time(data->stime), delta_time(philo->last_meal), philo->id);
 		pthread_mutex_unlock(&data->writelock);
 		return (1);
 	}
