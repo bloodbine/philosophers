@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:43:45 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/20 11:09:11 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/20 14:34:50 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	main(int argc, char **argv)
 			return (EXIT_FAILURE);
 		data.threadi = -1;
 		start_philos(&data);
-		supervisor(&data);
+		if (supervisor(&data) == 1)
+			return (EXIT_SUCCESS);
 		destroy_forks(&data);
 		return (EXIT_SUCCESS);
 	}

@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:46:25 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/20 12:03:53 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/20 14:49:03 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_philo
 	struct s_forks	forks;
 	long long		last_meal;
 	int				eating;
+	int				done;
 	int				meals;
 	int				id;
 }				t_philo;
@@ -68,8 +69,8 @@ void		*routine(void *arg);
 void		philo_eat(t_data *data, t_philo *philo);
 void		philo_sleep(t_data *data, t_philo *philo);
 void		philo_think(t_data *data, t_philo *philo);
-void		philo_print(t_data *data, long long time, int id, char *status);
 int			philo_dead(t_data *data, t_philo *philo);
+void		print(t_data *data, long long time, int id, char *status);
 
 // Time Utils
 

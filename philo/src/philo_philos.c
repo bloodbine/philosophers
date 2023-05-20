@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 14:54:37 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/20 11:23:24 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/20 12:40:04 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	create_philos(t_data *data)
 
 	i = 0;
 	j = 1;
-	data->philos = malloc(data->input.philocount * sizeof(t_philo) - 1);
+	data->philos = malloc(data->input.philocount * sizeof(t_philo));
 	if (data->philos == NULL)
 		return (1);
 	while (i < data->input.philocount)

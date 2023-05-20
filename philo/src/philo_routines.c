@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:48:44 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/20 11:23:16 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/20 14:47:03 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ void	*routine(void *arg)
 	while (data->death == 0)
 	{
 		philo_eat(data, philo);
-		philo->meals++;
+		if (++(philo->meals) == data->input.rotations)
+		{
+			philo->done = 1;
+			break ;
+		}
 		philo_sleep(data, philo);
 		philo_think(data, philo);
 	}
@@ -36,7 +40,9 @@ int	supervisor(t_data *data)
 	i = 0;
 	while (1)
 	{
-		if (i == data->input.philocount)
+		if (data->philos[i].done == 1)
+			i += 1;
+		if (i >= data->input.philocount)
 			i = 0;
 		if (philo_dead(data, &data->philos[i]) == 1)
 		{
@@ -44,11 +50,6 @@ int	supervisor(t_data *data)
 			data->write = 0;
 			detach_philos(data);
 			return (1);
-		}
-		if (data->input.rotations != 0 && data->philos[i].meals == data->input.rotations)
-		{
-			join_philos(data);
-			break ;
 		}
 	}
 	return (0);
