@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:51:39 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/20 14:45:47 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/20 15:08:20 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	philo_eat(t_data *data, t_philo *philo)
 	pickup_forks(data, philo);
 	print(data, delta_time(data->stime), philo->id, "is eating");
 	philo->eating = 1;
-	philo->last_meal = get_time();
 	ft_usleep(data->input.tt_eat);
 	drop_forks(data, philo);
+	philo->last_meal = get_time();
 	philo->eating = 0;
 }
 

@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:46:25 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/20 14:49:03 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/20 15:35:13 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_forks
 //	Required data for each Philosopher
 typedef struct s_philo
 {
+	struct s_data	*data;
 	pthread_t		pthread;
 	struct s_forks	forks;
 	long long		last_meal;
@@ -54,9 +55,10 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	writelock;
 	pthread_t		supervisor;
-	t_philo			*philos;
-	t_input			input;
+	struct s_philo	*philos;
+	struct s_input	input;
 	long long		stime;
+	int				ready;
 	int				threadi;
 	int				death;
 	int				write;

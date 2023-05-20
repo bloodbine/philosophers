@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 14:54:37 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/20 12:40:04 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/20 15:31:23 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	create_philos(t_data *data)
 
 void	fill_philo(t_data *data, int left, int right)
 {
+	data->philos[left].data = data;
 	data->philos[left].id = right;
 	if (right == 1)
 		data->philos[left].forks.l_fork = data->input.philocount - 1;
@@ -49,8 +50,7 @@ void	start_philos(t_data *data)
 	while (++(data->threadi) < data->input.philocount)
 	{
 		pthread_create(&(data->philos[data->threadi].pthread), NULL,
-			&routine, data);
-		usleep(5);
+			&routine, &data->philos[data->threadi]);
 	}
 }
 
