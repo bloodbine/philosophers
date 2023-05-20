@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:48:44 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/19 12:58:08 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/19 15:02:29 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	*routine(void *arg)
 	{
 		philo_eat(data, philo);
 		philo->meals++;
-		if (data->input.rotations != 0 && philo->meals >= data->input.rotations)
-			break ;
 		philo_sleep(data, philo);
 		philo_think(data, philo);
 	}

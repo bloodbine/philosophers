@@ -22,10 +22,10 @@ CFLAGS	= -Wall -Wextra -Werror
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
 	mkdir -p $(OBJDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -pthread -c $< -o $@
 
 $(NAME): $(SRCOBJ)
-	$(CC) $(SRCOBJ) $(CFLAGS) -o $(NAME)
+	$(CC) $(SRCOBJ) -pthread $(CFLAGS) -o $(NAME)
 
 clean: 
 	$(RMRF) $(OBJDIR)

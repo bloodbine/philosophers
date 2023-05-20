@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:46:25 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/18 15:47:48 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/19 14:55:58 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int			destroy_forks(t_data *data);
 
 int			create_philos(t_data *data);
 void		fill_philo(t_data *data, int left, int right);
+void		start_philos(t_data *data);
 int			join_philos(t_data *data);
 int			detach_philos(t_data *data);
 

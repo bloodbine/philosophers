@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:51:39 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/19 11:30:49 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/19 15:06:15 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	philo_eat(t_data *data, t_philo *philo)
 	pthread_mutex_lock(&data->writelock);
 	if (data->write == 1)
 		printf("%lld %d is eating\n", delta_time(data->stime), philo->id);
-	philo->eating = 1;
 	pthread_mutex_unlock(&data->writelock);
+	philo->eating = 1;
 	philo->last_meal = get_time();
 	ft_usleep(data->input.tt_eat);
 	drop_forks(data, philo);
