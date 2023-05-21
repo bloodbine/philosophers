@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:46:25 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/20 15:35:13 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/21 14:05:00 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,21 @@ typedef struct s_input
 	int				rotations;
 }				t_input;
 
+//	Collection of mutexes
+typedef struct s_locks
+{
+	pthread_mutex_t	l_write;
+	pthread_mutex_t	l_death;
+	pthread_mutex_t	l_done;
+	pthread_mutex_t	l_ready;
+}				t_locks;
+
 //	Primary data storage
 typedef struct s_data
 {
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	writelock;
 	pthread_t		supervisor;
+	struct s_locks	locks;
 	struct s_philo	*philos;
 	struct s_input	input;
 	long long		stime;
@@ -88,8 +97,8 @@ long long	my_atoll(char *num);
 
 // Fork Utils
 int			create_forks(t_data *data);
-int			pickup_forks(t_data *data, t_philo *philo);
-int			drop_forks(t_data *data, t_philo *philo);
+void		pickup_forks(t_data *data, t_philo *philo);
+void		drop_forks(t_data *data, t_philo *philo);
 int			destroy_forks(t_data *data);
 
 // Philo Utils
