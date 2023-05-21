@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:46:25 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/21 14:05:00 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/21 14:50:18 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,11 @@ typedef struct s_input
 //	Collection of mutexes
 typedef struct s_locks
 {
+	pthread_mutex_t	l_thread;
+	pthread_mutex_t	l_ready;
 	pthread_mutex_t	l_write;
 	pthread_mutex_t	l_death;
 	pthread_mutex_t	l_done;
-	pthread_mutex_t	l_ready;
 }				t_locks;
 
 //	Primary data storage
@@ -108,5 +109,9 @@ void		fill_philo(t_data *data, int left, int right);
 void		start_philos(t_data *data);
 int			join_philos(t_data *data);
 int			detach_philos(t_data *data);
+
+// Miscellanious Utils
+int			create_keychain(t_data *data);
+int			destroy_keychain(t_data *data);
 
 #endif

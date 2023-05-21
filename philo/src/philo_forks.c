@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 14:54:32 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/21 13:52:29 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/21 14:44:18 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,6 @@ int	create_forks(t_data *data)
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
 			return (1);
 	}
-	if (pthread_mutex_init(&data->writelock, NULL) != 0)
-		return (1);
-	if (pthread_mutex_init(&data->statelock, NULL) != 0)
-		return (1);
 	return (0);
 }
 

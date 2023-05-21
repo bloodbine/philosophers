@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:48:44 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/21 13:57:15 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/21 14:41:26 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,7 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (philo->data->ready != 1)
-	{
-		if (philo->id == philo->data->input.philocount)
-		{
-			philo->data->stime = get_time();
-			philo->data->ready = 1;
-		}
-	}
-	philo->last_meal = get_time();
-	if (philo->id % 2 != 0)
-		ft_usleep(philo->data->input.tt_eat);
-	pthread_mutex_lock(&philo->data->statelock);
-	while (philo->data->death == 0)
-	{
-		pthread_mutex_unlock(&philo->data->statelock);
-		philo_eat(philo->data, philo);
-		if (++(philo->meals) == philo->data->input.rotations)
-		{
-			philo->done = 1;
-			return (NULL);
-		}
-		philo_sleep(philo->data, philo);
-		philo_think(philo->data, philo);
-		pthread_mutex_lock(&philo->data->statelock);
-	}
-	pthread_mutex_unlock(&philo->data->statelock);
+	
 	return (NULL);
 }
 
