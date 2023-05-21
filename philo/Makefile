@@ -10,6 +10,7 @@ SRC		=	philo.c			\
 			philo_input.c	\
 			philo_forks.c 	\
 			philo_actions.c	\
+			philo_misc.c	\
 
 SRCOBJ	= $(patsubst %.c, $(OBJDIR)%.o, $(SRC))
 

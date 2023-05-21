@@ -6,18 +6,56 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:48:44 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/21 14:41:26 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/21 16:04:41 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../includes/philo.h"
+
+void	wait_for_others(t_philo *philo)
+{
+	while (1)
+	{
+		pthread_mutex_lock(&philo->data->locks.l_ready);
+		if (philo->id == philo->data->input.philocount)
+		{
+			philo->data->ready = 1;
+			philo->data->stime = get_time();
+		}
+		if (philo->data->ready == 1)
+			break ;
+		pthread_mutex_unlock(&philo->data->locks.l_ready);
+	}
+	pthread_mutex_unlock(&philo->data->locks.l_ready);
+	pthread_mutex_lock(&philo->l_time);
+	philo->last_meal = get_time();
+	pthread_mutex_unlock(&philo->l_time);
+}
 
 void	*routine(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	
+	pthread_mutex_unlock(&philo->data->locks.l_thread);
+	wait_for_others(philo);
+	while (1)
+	{
+		pthread_mutex_lock(&philo->data->locks.l_death);
+		if (philo->data->death == 1)
+			break ;
+		pthread_mutex_unlock(&philo->data->locks.l_death);
+		philo_eat(philo->data, philo);
+		if (philo->meals == philo->data->input.rotations)
+		{
+			pthread_mutex_lock(&philo->data->locks.l_done);
+			philo->done = 1;
+			pthread_mutex_unlock(&philo->data->locks.l_done);
+			break ;
+		}
+		philo_sleep(philo->data, philo);
+		philo_think(philo->data, philo);
+	}
 	return (NULL);
 }
 
@@ -42,8 +80,14 @@ int	supervisor(t_data *data)
 	int		i;
 
 	i = 0;
-	while (data->ready == 0)
-		i = 0;
+	while (1)
+	{
+		pthread_mutex_lock(&data->locks.l_ready);
+		if (data->ready == 1)
+			break ;
+		pthread_mutex_unlock(&data->locks.l_ready);
+	}
+	pthread_mutex_unlock(&data->locks.l_ready);
 	while (1)
 	{
 		if (data->philos[i].done == 1)

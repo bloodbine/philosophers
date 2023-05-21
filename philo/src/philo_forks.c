@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 14:54:32 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/21 14:44:18 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/21 15:52:13 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,7 @@ void	pickup_forks(t_data *data, t_philo *philo)
 void	drop_forks(t_data *data, t_philo *philo)
 {
 	pthread_mutex_unlock(&data->forks[philo->forks.l_fork]);
-	print(data, delta_time(data->stime), philo->id, "dropped a fork");
 	pthread_mutex_unlock(&data->forks[philo->forks.r_fork]);
-	print(data, delta_time(data->stime), philo->id, "dropped a fork");
 }
 
 int	destroy_forks(t_data *data)
@@ -62,7 +60,6 @@ int	destroy_forks(t_data *data)
 		if (pthread_mutex_destroy(&data->forks[i]) != 0)
 			return (1);
 	}
-	pthread_mutex_destroy(&data->writelock);
 	free(data->forks);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:05:53 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/21 14:52:10 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/21 15:41:23 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,6 @@ int	read_inputs(int argc, char **argv, t_data *data)
 			return (1);
 	}
 	else
-		data->input.rotations = 0;
+		data->input.rotations = -1;
 	return (0);
 }
