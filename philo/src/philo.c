@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:43:45 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/21 15:50:43 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/21 16:13:15 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ int	main(int argc, char **argv)
 	{
 		if (setup_data(argc, argv, &data) == 1)
 			return (EXIT_FAILURE);
-		printf("Setup ready\n");
-		printf("Required rotations: %d\n", data.input.rotations);
 		start_philos(&data);
-		printf("Philos started\n");
 		if (supervisor(&data) == 1)
 			return (EXIT_SUCCESS);
 		printf("Program done\n");

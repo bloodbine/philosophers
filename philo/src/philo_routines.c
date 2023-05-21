@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:48:44 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/21 16:04:41 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/21 16:20:41 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	pthread_mutex_unlock(&philo->data->locks.l_thread);
 	wait_for_others(philo);
+	if (philo->id % 2 == 0)
+		ft_usleep(philo->data->input.tt_eat);
 	while (1)
 	{
 		pthread_mutex_lock(&philo->data->locks.l_death);
@@ -88,6 +90,7 @@ int	supervisor(t_data *data)
 		pthread_mutex_unlock(&data->locks.l_ready);
 	}
 	pthread_mutex_unlock(&data->locks.l_ready);
+	ft_usleep(5);
 	while (1)
 	{
 		if (data->philos[i].done == 1)

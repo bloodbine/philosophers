@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:46:25 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/21 15:58:17 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/21 16:24:03 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_philo
 	struct s_forks	forks;
 	pthread_mutex_t	l_time;
 	long long		last_meal;
+	pthread_mutex_t	l_eat;
 	int				eating;
 	int				done;
 	int				meals;

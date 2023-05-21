@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 14:54:37 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/21 16:03:42 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/21 16:12:55 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	fill_philo(t_data *data, int left, int right)
 	data->philos[left].meals = 0;
 	data->philos[left].done = 0;
 	data->philos[left].eating = 0;
+	pthread_mutex_init(&data->philos[left].l_time, NULL);
 }
 
 void	start_philos(t_data *data)

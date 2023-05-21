@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:51:39 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/21 16:04:55 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/21 16:23:20 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,11 @@ int	philo_dead(t_data *data, t_philo *philo)
 {
 	if (philo->done == 1)
 		return (0);
+	pthread_mutex_lock(&philo->l_time);
+	pthread_mutex_lock(&philo->);
 	if (delta_time(philo->last_meal) > data->input.tt_die && philo->eating == 0)
 	{
+		pthread_mutex_unlock(&philo->l_time);
 		print(data, delta_time(data->stime), philo->id, "died");
 		pthread_mutex_lock(&data->locks.l_death);
 		data->death = 1;
@@ -60,5 +63,6 @@ int	philo_dead(t_data *data, t_philo *philo)
 		pthread_mutex_unlock(&data->locks.l_write);
 		return (1);
 	}
+	pthread_mutex_unlock(&philo->l_time);
 	return (0);
 }
