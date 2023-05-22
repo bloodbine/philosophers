@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:46:25 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/21 16:24:03 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:22:29 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void		print(t_data *data, long long time, int id, char *status);
 
 long long	get_time(void);
 long long	delta_time(long long time);
-void		ft_usleep(long long time_to_sleep);
+void		ft_usleep(long long start, long long time_to_sleep);
 
 // Input Utils
 

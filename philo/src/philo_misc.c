@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 14:44:43 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/21 16:12:18 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/21 16:25:55 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	destroy_keychain(t_data *data)
 	while (i < data->input.philocount)
 	{
 		if (pthread_mutex_destroy(&data->philos[i].l_time) == 1)
+			return (1);
+		if (pthread_mutex_destroy(&data->philos[i].l_eat) == 1)
 			return (1);
 		i += 1;
 	}
