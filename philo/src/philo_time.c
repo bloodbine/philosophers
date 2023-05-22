@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:01:32 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/22 13:21:50 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:07:45 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ long long	delta_time(long long time)
 
 void	ft_usleep(long long start, long long time_to_sleep)
 {
-	while (1)
-	{
-		if (get_time() == (start + time_to_sleep))
-			break ;
-	}
+	while (get_time() < (start + time_to_sleep))
+		usleep(500);
 }

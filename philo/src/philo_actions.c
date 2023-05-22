@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:51:39 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/22 13:25:56 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:26:30 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	philo_eat(t_data *data, t_philo *philo)
 void	philo_sleep(t_data *data, t_philo *philo)
 {
 	print(data, delta_time(data->stime), philo->id, "is sleeping");
-	ft_usleep(philo->last_meal + philo->data->input.tt_eat, data->input.tt_sleep);
+	ft_usleep(philo->last_meal + data->input.tt_eat, data->input.tt_sleep);
 }
 
 void	philo_think(t_data *data, t_philo *philo)

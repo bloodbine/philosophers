@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:43:45 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/22 12:14:51 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:22:23 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,8 @@ int	main(int argc, char **argv)
 		if (setup_data(argc, argv, &data) == 1)
 			return (EXIT_FAILURE);
 		start_philos(&data);
-		// if (supervisor(&data) == 1)
-		// 	return (EXIT_SUCCESS);
-		join_philos(&data);
+		if (supervisor(&data) == 1)
+			return (EXIT_SUCCESS);
 		destroy_keychain(&data);
 		destroy_forks(&data);
 		return (EXIT_SUCCESS);

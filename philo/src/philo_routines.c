@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:48:44 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/22 13:26:56 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:29:24 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,10 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	wait_for_others(philo);
-	if (philo->id % 2 == 0)
+	if (philo->id % 2 == 1)
 		ft_usleep(philo->data->stime, philo->data->input.tt_eat);
-	while (1)
+	while (philo->data->death != 1)
 	{
-		pthread_mutex_lock(&philo->data->locks.l_death);
-		if (philo->data->death == 1)
-			break ;
 		pthread_mutex_unlock(&philo->data->locks.l_death);
 		philo_eat(philo->data, philo);
 		if (philo->meals == philo->data->input.rotations)
@@ -56,7 +53,9 @@ void	*routine(void *arg)
 		}
 		philo_sleep(philo->data, philo);
 		philo_think(philo->data, philo);
+		pthread_mutex_lock(&philo->data->locks.l_death);
 	}
+	pthread_mutex_unlock(&philo->data->locks.l_death);
 	return (NULL);
 }
 
@@ -95,17 +94,10 @@ int	supervisor(t_data *data)
 			i += 1;
 		if (i >= data->input.philocount)
 			i = 0;
-		if (philo_dead(data, &data->philos[i]) == 1)
-		{
-			detach_philos(data);
+		if (philo_dead(data, &data->philos[i]) == 1 && detach_philos(data))
 			return (1);
-		}
-		if (count_done(data) == data->input.philocount)
-		{
-			print(data, delta_time(data->stime), data->philos[i].id, "done");
-			detach_philos(data);
+		if (count_done(data) == data->input.philocount && join_philos(data))
 			return (0);
-		}
 	}
 	return (0);
 }

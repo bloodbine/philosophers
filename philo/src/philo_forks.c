@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 14:54:32 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/22 12:30:37 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:26:14 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	create_forks(t_data *data)
 
 void	pickup_forks(t_data *data, t_philo *philo)
 {
-	if (philo->forks.l_fork < philo->forks.r_fork)
+	if (philo->id % 2 == 1)
 	{
 		pthread_mutex_lock(&data->forks[philo->forks.l_fork]);
 		print(data, delta_time(data->stime), philo->id, "has taken a fork");
