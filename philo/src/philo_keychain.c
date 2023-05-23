@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_misc.c                                       :+:      :+:    :+:   */
+/*   philo_keychain.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 14:44:43 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/21 16:25:55 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/23 12:19:14 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	create_keychain(t_data *data)
 {
-	if (pthread_mutex_init(&data->locks.l_thread, NULL) == 1)
-		return (1);
 	if (pthread_mutex_init(&data->locks.l_ready, NULL) == 1)
 		return (1);
 	if (pthread_mutex_init(&data->locks.l_write, NULL) == 1)
@@ -33,8 +31,6 @@ int	destroy_keychain(t_data *data)
 {
 	int	i;
 
-	if (pthread_mutex_destroy(&data->locks.l_thread) == 1)
-		return (1);
 	if (pthread_mutex_destroy(&data->locks.l_ready) == 1)
 		return (1);
 	if (pthread_mutex_destroy(&data->locks.l_write) == 1)

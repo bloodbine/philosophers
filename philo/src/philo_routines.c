@@ -6,30 +6,22 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:48:44 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/22 15:29:24 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/23 12:21:49 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../includes/philo.h"
 
-void	wait_for_others(t_philo *philo)
+int	check_hunger(t_philo *philo)
 {
-	while (1)
+	if (philo->meals == philo->data->input.rotations)
 	{
-		pthread_mutex_lock(&philo->data->locks.l_ready);
-		if (philo->id == philo->data->input.philocount)
-		{
-			philo->data->ready = 1;
-			philo->data->stime = get_time();
-		}
-		if (philo->data->ready == 1)
-			break ;
-		pthread_mutex_unlock(&philo->data->locks.l_ready);
+		pthread_mutex_lock(&philo->data->locks.l_done);
+		philo->done = 1;
+		pthread_mutex_unlock(&philo->data->locks.l_done);
+		return (1);
 	}
-	pthread_mutex_unlock(&philo->data->locks.l_ready);
-	pthread_mutex_lock(&philo->l_time);
-	philo->last_meal = get_time();
-	pthread_mutex_unlock(&philo->l_time);
+	return (0);
 }
 
 void	*routine(void *arg)
@@ -37,20 +29,19 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	wait_for_others(philo);
-	if (philo->id % 2 == 1)
+	pthread_mutex_lock(&philo->data->locks.l_ready);
+	pthread_mutex_unlock(&philo->data->locks.l_ready);
+	pthread_mutex_lock(&philo->l_time);
+	philo->last_meal = philo->data->stime;
+	pthread_mutex_unlock(&philo->l_time);
+	if (philo->id % 2 != 0)
 		ft_usleep(philo->data->stime, philo->data->input.tt_eat);
 	while (philo->data->death != 1)
 	{
 		pthread_mutex_unlock(&philo->data->locks.l_death);
 		philo_eat(philo->data, philo);
-		if (philo->meals == philo->data->input.rotations)
-		{
-			pthread_mutex_lock(&philo->data->locks.l_done);
-			philo->done = 1;
-			pthread_mutex_unlock(&philo->data->locks.l_done);
+		if (check_hunger(philo) == 1)
 			break ;
-		}
 		philo_sleep(philo->data, philo);
 		philo_think(philo->data, philo);
 		pthread_mutex_lock(&philo->data->locks.l_death);
@@ -80,14 +71,10 @@ int	supervisor(t_data *data)
 	int		i;
 
 	i = 0;
-	while (1)
-	{
-		pthread_mutex_lock(&data->locks.l_ready);
-		if (data->ready == 1)
-			break ;
-		pthread_mutex_unlock(&data->locks.l_ready);
-	}
+	ft_usleep(get_time(), data->input.philocount * 2);
+	data->stime = get_time();
 	pthread_mutex_unlock(&data->locks.l_ready);
+	ft_usleep(get_time(), data->input.tt_die - 10);
 	while (1)
 	{
 		if (data->philos[i].done == 1)

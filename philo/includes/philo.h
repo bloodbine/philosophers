@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:46:25 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/22 13:22:29 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/23 12:19:22 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct s_input
 //	Collection of mutexes
 typedef struct s_locks
 {
-	pthread_mutex_t	l_thread;
 	pthread_mutex_t	l_ready;
 	pthread_mutex_t	l_write;
 	pthread_mutex_t	l_print;
