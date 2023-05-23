@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:51:39 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/22 14:26:30 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/23 16:02:32 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,14 @@
 void	print(t_data *data, long long time, int id, char *status)
 {
 	pthread_mutex_lock(&data->locks.l_print);
+	pthread_mutex_lock(&data->locks.l_write);
 	if (data->write == 1)
+	{
+		pthread_mutex_unlock(&data->locks.l_write);
 		printf("%lld %d %s\n", time, id, status);
+	}
+	else
+		pthread_mutex_unlock(&data->locks.l_write);
 	pthread_mutex_unlock(&data->locks.l_print);
 }
 
@@ -68,10 +74,11 @@ int	philo_dead(t_data *data, t_philo *philo)
 			pthread_mutex_lock(&data->locks.l_write);
 			data->write = 0;
 			pthread_mutex_unlock(&data->locks.l_write);
+			join_philos(data);
 			return (1);
 		}
+		pthread_mutex_unlock(&philo->l_eat);
 	}
-	pthread_mutex_unlock(&philo->l_eat);
 	pthread_mutex_unlock(&philo->l_time);
 	return (0);
 }

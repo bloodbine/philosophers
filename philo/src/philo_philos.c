@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 14:54:37 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/23 12:05:06 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/23 15:19:33 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	start_philos(t_data *data)
 			&routine, &data->philos[data->threadi]);
 		data->threadi += 1;
 	}
+	supervisor(data);
 }
 
 int	join_philos(t_data *data)
@@ -66,19 +67,6 @@ int	join_philos(t_data *data)
 	while (++i < data->input.philocount)
 	{
 		if (pthread_join(data->philos[i].pthread, NULL) != 0)
-			return (1);
-	}
-	return (0);
-}
-
-int	detach_philos(t_data *data)
-{
-	int	i;
-
-	i = -1;
-	while (++i < data->input.philocount)
-	{
-		if (pthread_detach(data->philos[i].pthread) != 0)
 			return (1);
 	}
 	return (0);

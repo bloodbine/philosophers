@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:46:25 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/23 12:19:22 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:46:38 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct s_data
 
 // Philosopher actions
 
-int			supervisor(t_data *data);
+void		supervisor(t_data *data);
 void		*routine(void *arg);
 void		philo_eat(t_data *data, t_philo *philo);
 void		philo_sleep(t_data *data, t_philo *philo);
@@ -110,7 +110,6 @@ int			create_philos(t_data *data);
 void		fill_philo(t_data *data, int left, int right);
 void		start_philos(t_data *data);
 int			join_philos(t_data *data);
-int			detach_philos(t_data *data);
 
 // Miscellanious Utils
 int			create_keychain(t_data *data);
