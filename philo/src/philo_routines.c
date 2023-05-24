@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:48:44 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/24 13:00:07 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:39:02 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	supervisor(t_data *data)
 	ft_usleep(get_time(), data->input.philocount * 2);
 	data->stime = get_time();
 	pthread_mutex_unlock(&data->locks.l_ready);
-	ft_usleep(get_time(), 1);
+	ft_usleep(get_time(), 5);
 	while (1)
 	{
 		if (data->philos[i].done == 1)

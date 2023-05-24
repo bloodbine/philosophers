@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:46:25 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/23 14:46:38 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/24 13:49:21 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_input
 	long long		tt_die;
 	long long		tt_eat;
 	long long		tt_sleep;
+	long long		delay;
 	int				rotations;
 }				t_input;
 

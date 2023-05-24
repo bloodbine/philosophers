@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:43:45 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/23 15:19:09 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:42:53 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ int	setup_data(int argc, char **argv, t_data *data)
 		return (1);
 	if (create_philos(data) == 1)
 		return (1);
+	if (data->input.tt_die < data->input.tt_eat)
+		data->input.tt_eat = data->input.tt_die + 10;
+	if (data->input.tt_die < data->input.tt_sleep)
+		data->input.tt_sleep = data->input.tt_die + 10;
 	data->write = 1;
 	data->death = 0;
 	data->ready = 0;
