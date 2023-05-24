@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 14:54:32 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/23 14:47:19 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:25:12 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,16 @@ int	create_forks(t_data *data)
 
 	i = -1;
 	data->forks = malloc(data->input.philocount * sizeof(pthread_mutex_t));
+	if (data->forks == NULL)
+		return (1);
 	while (++i < data->input.philocount)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
+		{
+			while (--i >= 0)
+				pthread_mutex_destroy(&data->forks[i]);
 			return (1);
+		}
 	}
 	return (0);
 }

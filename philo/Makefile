@@ -16,7 +16,6 @@ SRCOBJ	= $(patsubst %.c, $(OBJDIR)%.o, $(SRC))
 
 CC		= cc
 RMF		= rm -f
-RMRF	= rm -rf
 RMDIR	= rmdir
 CFLAGS	= -Wall -Wextra -Werror
 
@@ -27,8 +26,9 @@ $(OBJDIR)%.o: $(SRCDIR)%.c
 $(NAME): $(SRCOBJ)
 	$(CC) $(SRCOBJ) -pthread $(CFLAGS) -o $(NAME)
 
-clean: 
-	$(RMRF) $(OBJDIR)
+clean:
+	$(RMF) $(SRCOBJ)
+	$(RMDIR) $(OBJDIR)
 
 fclean: clean
 	$(RMF) $(NAME)
