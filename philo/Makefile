@@ -28,7 +28,7 @@ $(NAME): $(SRCOBJ)
 
 clean:
 	$(RMF) $(SRCOBJ)
-	$(RMDIR) $(OBJDIR)
+	if [ -d "obj" ]; then $(RMDIR) $(OBJDIR); fi
 
 fclean: clean
 	$(RMF) $(NAME)
