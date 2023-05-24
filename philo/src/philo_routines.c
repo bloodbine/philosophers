@@ -6,7 +6,7 @@
 /*   By: gpasztor <gpasztor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:48:44 by gpasztor          #+#    #+#             */
-/*   Updated: 2023/05/23 15:57:33 by gpasztor         ###   ########.fr       */
+/*   Updated: 2023/05/24 13:00:07 by gpasztor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,6 @@ void	supervisor(t_data *data)
 			join_philos(data);
 			break ;
 		}
+		i += 1;
 	}
 }
